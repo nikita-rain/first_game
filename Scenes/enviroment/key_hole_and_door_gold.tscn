@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsubp8qy7cmb"]
+
+[ext_resource type="Script" path="res://Scenes/enviroment/KeyHole.gd" id="1_ry5ua"]
+[ext_resource type="Texture2D" uid="uid://bgdot8yn52d1w" path="res://Assets/Texture/Environment/KeyHole.png" id="2_yt7wh"]
+[ext_resource type="Script" path="res://Scenes/enviroment/Door.gd" id="3_mnxg6"]
+[ext_resource type="Texture2D" uid="uid://bytsvyk1c41e2" path="res://Assets/Texture/Environment/GoldenDoor.png" id="3_xne2b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78n7c"]
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dt36b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ef1q"]
+size = Vector2(8, 16)
+
+[node name="KeyHole and Door Gold" type="Node2D"]
+
+[node name="KeyHole" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_ry5ua")
+
+[node name="Sprite2D" type="Sprite2D" parent="KeyHole"]
+position = Vector2(4, 4)
+texture = ExtResource("2_yt7wh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeyHole"]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_78n7c")
+
+[node name="Area2D" type="Area2D" parent="KeyHole"]
+collision_layer = 32
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeyHole/Area2D"]
+position = Vector2(4, 4)
+shape = SubResource("CircleShape2D_dt36b")
+
+[node name="Door" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("3_mnxg6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Door"]
+position = Vector2(24, 8)
+texture = ExtResource("3_xne2b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+position = Vector2(24, 8)
+shape = SubResource("RectangleShape2D_7ef1q")
+
+[connection signal="key_recieved" from="KeyHole" to="Door" method="_on_key_hole_key_recieved"]
+[connection signal="body_entered" from="KeyHole/Area2D" to="KeyHole" method="_on_area_2d_body_entered"]

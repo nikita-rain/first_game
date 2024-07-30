@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://pqtftv2wayqp"]
+
+[ext_resource type="PackedScene" uid="uid://dwk6dpww7xdnm" path="res://Scenes/items/item_box.tscn" id="1_36is3"]
+[ext_resource type="Texture2D" uid="uid://fvo5sxgs0k3c" path="res://Assets/Texture/Items/Key.png" id="2_wmmve"]
+
+[node name="Key" instance=ExtResource("1_36is3")]
+collision_mask = 31
+item_name = "golden_key"
+is_foreground = false
+is_destroyable = false
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_wmmve")

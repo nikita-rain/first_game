@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2yeonqqnfbqq"]
+
+[ext_resource type="PackedScene" uid="uid://8arwk5qf8td1" path="res://Scenes/items/item.tscn" id="1_ygbd5"]
+[ext_resource type="Texture2D" uid="uid://fni2rw46re6" path="res://Assets/Texture/Items/Red Fruit.png" id="2_yug6c"]
+
+[node name="Red Fruit" instance=ExtResource("1_ygbd5")]
+collision_layer = 0
+item_name = "red_fruit"
+is_foreground = false
+is_destroyable = true
+active = "heal"
+is_consumable = true
+metadata/_edit_horizontal_guides_ = [-22.0]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_yug6c")

@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://bhtplws456c3l"]
+
+[ext_resource type="Script" path="res://Scenes/player/player.gd" id="1_akmrw"]
+[ext_resource type="Resource" uid="uid://dt03e26bbhmum" path="res://Resources/game_constant.tres" id="2_hp087"]
+[ext_resource type="Texture2D" uid="uid://dt3srwpxmjami" path="res://Assets/Texture/Player/Test Player2.png" id="2_k5o1t"]
+[ext_resource type="Texture2D" uid="uid://c8c600fsm44hh" path="res://Assets/Texture/Player/Test Player3.png" id="3_33w0o"]
+[ext_resource type="Texture2D" uid="uid://q26wadl5bc8e" path="res://Assets/Texture/Player/Test Player1.png" id="4_5vjsd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wrumn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_k5o1t")
+}, {
+"duration": 5.0,
+"texture": ExtResource("3_33w0o")
+}],
+"loop": true,
+"name": &"damaged",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5vjsd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hgxx2"]
+radius = 3.0
+height = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gbhb5"]
+radius = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ba3xt"]
+size = Vector2(20, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_moblp"]
+size = Vector2(8, 16)
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+position = Vector2(4, 0)
+scale = Vector2(-1, 1)
+collision_mask = 11
+script = ExtResource("1_akmrw")
+game_constant = ExtResource("2_hp087")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_wrumn")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShapePlayer" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(4, 4)
+shape = SubResource("CapsuleShape2D_hgxx2")
+
+[node name="ItemCollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, -3)
+shape = SubResource("CircleShape2D_gbhb5")
+disabled = true
+debug_color = Color(0.984977, 0, 0.338327, 0.42)
+
+[node name="PickupCoord" type="Node2D" parent="."]
+position = Vector2(4, -3)
+
+[node name="PickupArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 32
+collision_mask = 28
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(4, 2)
+shape = SubResource("RectangleShape2D_ba3xt")
+
+[node name="Ladder area" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder area"]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_moblp")
+
+[connection signal="area_entered" from="Ladder area" to="." method="_on_ladder_area_area_entered"]
+[connection signal="area_exited" from="Ladder area" to="." method="_on_ladder_area_area_exited"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://wkxdhx1cskar"]
+
+[ext_resource type="Script" path="res://Scenes/player/hud.gd" id="1_1asa1"]
+[ext_resource type="Texture2D" uid="uid://1msa0ditnwol" path="res://Assets/Texture/Player/Heart_0.png" id="1_hnn3d"]
+[ext_resource type="Texture2D" uid="uid://c0i8usbiewds0" path="res://Assets/Texture/Player/Heart_1.png" id="2_gtbyy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c3tnm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hnn3d")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gtbyy")
+}],
+"loop": true,
+"name": &"fill",
+"speed": 1.0
+}]
+
+[node name="HUD" type="Node2D"]
+script = ExtResource("1_1asa1")
+
+[node name="HealthBar" type="Node2D" parent="."]
+position = Vector2(258, 150)
+
+[node name="Health1" type="AnimatedSprite2D" parent="HealthBar"]
+z_index = 2
+sprite_frames = SubResource("SpriteFrames_c3tnm")
+animation = &"empty"
+
+[node name="Health2" type="AnimatedSprite2D" parent="HealthBar"]
+z_index = 2
+position = Vector2(10, 0)
+sprite_frames = SubResource("SpriteFrames_c3tnm")
+animation = &"empty"
+
+[node name="Health3" type="AnimatedSprite2D" parent="HealthBar"]
+z_index = 2
+position = Vector2(20, 0)
+sprite_frames = SubResource("SpriteFrames_c3tnm")
+animation = &"empty"

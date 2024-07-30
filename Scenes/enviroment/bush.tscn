@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfikaek8udqld"]
+
+[ext_resource type="Script" path="res://Bush.gd" id="1_con7v"]
+[ext_resource type="Texture2D" uid="uid://b5m1osb723gdu" path="res://Assets/Texture/Environment/constructions/Bush.png" id="2_kvjp1"]
+
+[node name="Bush" type="Node2D"]
+script = ExtResource("1_con7v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 4)
+texture = ExtResource("2_kvjp1")
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(0, 6)

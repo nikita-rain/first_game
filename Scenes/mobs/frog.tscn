@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2hhuw2xhpbcy"]
+
+[ext_resource type="Script" path="res://Scenes/mobs/frog.gd" id="1_4wrym"]
+[ext_resource type="Texture2D" uid="uid://d34p4uhn6vkj1" path="res://Assets/Texture/mobs/frog/Frog Test.png" id="1_i43nw"]
+[ext_resource type="Texture2D" uid="uid://bi4o3y5cd5dnq" path="res://Assets/Texture/mobs/frog/tongue-Sheet.png" id="2_mnqeq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfohv"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7f88"]
+size = Vector2(42, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qpmq3"]
+radius = 2.0
+
+[node name="Frog" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 15
+lock_rotation = true
+script = ExtResource("1_4wrym")
+item_name = "frog"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i43nw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kfohv")
+
+[node name="Agr Area" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Agr Area"]
+position = Vector2(-53, -12)
+shape = SubResource("RectangleShape2D_a7f88")
+
+[node name="Tongue" type="Node2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="Tongue"]
+texture_repeat = 2
+position = Vector2(-4, 2)
+points = PackedVector2Array(0, 0)
+width = 3.0
+texture = ExtResource("2_mnqeq")
+texture_mode = 1
+
+[node name="Damage Area" type="Area2D" parent="Tongue"]
+collision_layer = 0
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tongue/Damage Area"]
+position = Vector2(-2, 2)
+shape = SubResource("CircleShape2D_qpmq3")
+
+[connection signal="body_entered" from="Agr Area" to="." method="_on_agr_area_body_entered"]
+[connection signal="body_entered" from="Tongue/Damage Area" to="." method="_on_damage_area_body_entered"]

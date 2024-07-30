@@ -1,0 +1,134 @@
+[gd_scene load_steps=16 format=3 uid="uid://bw63cm5bw2p5o"]
+
+[ext_resource type="Script" path="res://Scenes/enviroment/Attacker.gd" id="1_unxm8"]
+[ext_resource type="Texture2D" uid="uid://dx3p2p062gdry" path="res://Assets/Texture/Environment/Attacker/Attacker-Sheet.png" id="2_mvjcf"]
+[ext_resource type="Texture2D" uid="uid://decxjolrfl0ml" path="res://Assets/Texture/Environment/Attacker/Attacker projectile-Sheet.png" id="3_bobya"]
+[ext_resource type="Script" path="res://Scenes/enviroment/Projectile.gd" id="3_pqi1i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2k1y"]
+atlas = ExtResource("2_mvjcf")
+region = Rect2(0, 20, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1fvo"]
+atlas = ExtResource("2_mvjcf")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbjr5"]
+atlas = ExtResource("2_mvjcf")
+region = Rect2(0, 10, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cnijb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2k1y")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1fvo")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbjr5")
+}],
+"loop": false,
+"name": &"sleep",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aruda"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s16ol"]
+size = Vector2(54, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6ooj"]
+atlas = ExtResource("3_bobya")
+region = Rect2(0, 0, 9, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5axky"]
+atlas = ExtResource("3_bobya")
+region = Rect2(9, 0, 9, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_54ghq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6ooj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5axky")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyayu"]
+size = Vector2(7, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqnhb"]
+size = Vector2(4, 2)
+
+[node name="Attacker" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_unxm8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cnijb")
+animation = &"sleep"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_aruda")
+
+[node name="ProjectileStart" type="Node2D" parent="."]
+position = Vector2(-8, 2)
+
+[node name="Agr Area" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Agr Area"]
+position = Vector2(-43, 0)
+shape = SubResource("RectangleShape2D_s16ol")
+
+[node name="Projectile" type="RigidBody2D" parent="."]
+position = Vector2(-10, 0)
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+linear_velocity = Vector2(-30, 0)
+script = ExtResource("3_pqi1i")
+vel_x = -40.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Projectile"]
+position = Vector2(0.5, -1)
+sprite_frames = SubResource("SpriteFrames_54ghq")
+autoplay = "default"
+frame = 1
+frame_progress = 0.284599
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile"]
+shape = SubResource("RectangleShape2D_cyayu")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="Projectile"]
+position = Vector2(0.5, -1)
+collision_layer = 0
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile/Area2D"]
+position = Vector2(-2, 1)
+shape = SubResource("RectangleShape2D_oqnhb")
+
+[connection signal="body_entered" from="Agr Area" to="." method="_on_agr_area_body_entered"]
+[connection signal="body_entered" from="Projectile/Area2D" to="." method="_on_projectile_body_entered"]

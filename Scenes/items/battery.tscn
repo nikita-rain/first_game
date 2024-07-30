@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dea7acn4lus44"]
+
+[ext_resource type="PackedScene" uid="uid://8arwk5qf8td1" path="res://Scenes/items/item.tscn" id="1_b66lq"]
+[ext_resource type="Texture2D" uid="uid://dosfy7fktekhn" path="res://Assets/Texture/Items/Battery.png" id="2_2n3g3"]
+
+[node name="Battery" instance=ExtResource("1_b66lq")]
+item_name = "battery"
+is_foreground = false
+is_taking_damage = false
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_2n3g3")

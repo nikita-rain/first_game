@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8rxgwwlcs8yq"]
+
+[ext_resource type="PackedScene" uid="uid://wkxdhx1cskar" path="res://Scenes/player/hud.tscn" id="1_gflnl"]
+[ext_resource type="PackedScene" uid="uid://bhtplws456c3l" path="res://Scenes/player/player.tscn" id="1_w0lxs"]
+[ext_resource type="Script" path="res://Scenes/player/Camera Player.gd" id="2_8edl7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2r6n"]
+size = Vector2(280, 152)
+
+[node name="Player and Camera" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_w0lxs")]
+position = Vector2(24, 20)
+
+[node name="Camera Player" type="Camera2D" parent="."]
+position = Vector2(144, 80)
+script = ExtResource("2_8edl7")
+
+[node name="Area2D" type="Area2D" parent="Camera Player"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera Player/Area2D"]
+shape = SubResource("RectangleShape2D_q2r6n")
+
+[node name="HUD" parent="Camera Player" instance=ExtResource("1_gflnl")]
+position = Vector2(-144, -80)
+
+[connection signal="update_health" from="Player" to="Camera Player/HUD" method="_on_player_update_health"]
+[connection signal="body_exited" from="Camera Player/Area2D" to="Camera Player" method="_on_area_2d_body_exited"]
+
+[editable path="Camera Player/HUD"]

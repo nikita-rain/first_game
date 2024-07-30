@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwnjn42c0v2h3"]
+
+[ext_resource type="Script" path="res://Portal.gd" id="1_m0d04"]
+[ext_resource type="Texture2D" uid="uid://mq1rjh7ia6ak" path="res://Assets/Texture/Environment/Portals/PortalBlue-Sheet.png" id="2_ja5nb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1vwo"]
+atlas = ExtResource("2_ja5nb")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6bio"]
+atlas = ExtResource("2_ja5nb")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhkfb"]
+atlas = ExtResource("2_ja5nb")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3su7"]
+atlas = ExtResource("2_ja5nb")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ikgi5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1vwo")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_j6bio")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_hhkfb")
+}],
+"loop": true,
+"name": &"active",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3su7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6a4w7"]
+size = Vector2(8, 12)
+
+[node name="PortalBlue" type="Node2D"]
+script = ExtResource("1_m0d04")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ikgi5")
+animation = &"active"
+autoplay = "default"
+frame_progress = 0.623883
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_6a4w7")
+
+[node name="ItemPosition" type="Node2D" parent="."]
+position = Vector2(0, -7)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
