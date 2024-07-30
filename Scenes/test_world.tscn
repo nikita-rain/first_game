@@ -66,15 +66,5 @@ linked_portal = NodePath("../PortalBlue")
 position = Vector2(773, 132)
 scale = Vector2(-1, 1)
 
-[connection signal="body_entered" from="TileMap/Pikes" to="TileMap/Pikes" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122852" to="TileMap/@Area2D@122852" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122853" to="TileMap/@Area2D@122853" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122854" to="TileMap/@Area2D@122854" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122855" to="TileMap/@Area2D@122855" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122856" to="TileMap/@Area2D@122856" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122857" to="TileMap/@Area2D@122857" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122858" to="TileMap/@Area2D@122858" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@122859" to="TileMap/@Area2D@122859" method="_on_body_entered"]
-
 [editable path="KeyHole and Door Gold"]
 [editable path="Default Podium2/Wire"]
